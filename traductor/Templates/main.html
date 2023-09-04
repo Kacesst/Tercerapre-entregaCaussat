@@ -1,0 +1,77 @@
+!  
+
+    <!-- Navigation-->
+  <!--<nav class="navbar navbar-light bg-light static-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'Inicio' %}">Inicio</a>´
+            <a class="navbar-brand" href="{% url 'Profesores' %}">Profesores</a>
+            <a class="navbar-brand" href="{% url 'Cursos' %}">Cursos</a>
+            <a class="navbar-brand" href="{% url 'Estudiantes' %}">Estudiantes</a>
+            <a class="navbar-brand" href="{% url 'Entregables' %}">Entregables</a>
+            <a class="btn btn-primary" href="#NADAAUN">INICIAR</a>
+        </div>
+    </nav> -->
+
+ <!-- Esto es lo que va a cambiar-->
+
+        {% block contenidoQueCambia %}
+        <a href="{% url 'traducir' %}">Traducir</a>
+        <a href="{% url 'buscar' %}">Buscar</a>
+        <a href="{% url 'historial_traducciones' %}">Historial de Traducciones</a>
+
+        {% endblock %}
+
+    <!DOCTYPE html>
+    <html>
+            
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+            <title>Página Principal</title>
+    <header>
+        <h1>Tu Traductor</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'traducir' %}">Traducir</a></li>
+                <li><a href="{% url 'historial_traducciones' %}">Historial</a></li>
+                <!-- Agrega más enlaces de navegación según tus necesidades -->
+            </ul>
+        </nav>
+    </header>
+
+    </head>
+        <body>
+            <h1>Bienvenido a la Página Traductor</h1>
+        
+            <!-- Enlace para ir a la página de inicio de sesión -->
+            <a href="{% url 'iniciar_sesion' %}">Iniciar Sesión</a>
+        
+            <!-- Enlace para ir a la página de registro -->
+            <a href="{% url 'registro' %}">Registrarse</a>
+        
+            <!-- Enlace para ir al historial de traducciones -->
+            <a href="{% url 'historial_traducciones' %}">Historial de Traducciones</a>
+        
+            <!-- Aquí puedes agregar más contenido de la página principal -->
+        </body>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <!-- Pie de página común -->
+    </footer>
+
+    <!-- Agrega tus scripts JS aquí -->
+</body>
+</html>
+
+
+
