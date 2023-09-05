@@ -1,14 +1,26 @@
-<h2>Resultados de la Búsqueda</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ formulario.as_p }}
-    <button type="submit">Buscar</button>
-</form>
+{% block content %}
+  <h1>Búsqueda</h1>
 
-{% if resultados %}
-<ul>
-    {% for resultado in resultados %}
-    <li>{{ resultado.palabra }} - {{ resultado.significado }}</li>
+  <form action="{% url 'busqueda_view' %}" method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <input type="submit" value="Buscar">
+  </form>
+
+  {% if resultados %}
+    <h2>Resultados de la búsqueda</h2>
+
+    {% for traduccion in resultados %}
+      <p>
+        <strong>Inglés:</strong> {{ traduccion.texto_ingles }}
+        <br>
+        <strong>Español:</strong> {{ traduccion.texto_espanol }}
+      </p>
     {% endfor %}
-</ul>
-{% endif %}
+  {% else %}
+    <p>No se encontraron resultados.</p>
+  {% endif %}
+
+{% endblock %}

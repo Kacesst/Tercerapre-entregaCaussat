@@ -1,32 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Iniciar Sesión</title>
-</head>
-<body>
-    <h1>Iniciar Sesión</h1>
-    {% block content %}
-    <form method="post" action="{% url 'iniciar_sesion' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Iniciar Sesión</button>
-    </form>
-    {% endblock %}
-    <!-- Enlace para volver a la página principal -->
-    <a href="{% url 'traducir' %}">Volver a la página principal</a>
-</body>
-</html>
-{% extends 'main.html' %}
-
-{% block title %}Iniciar Sesión{% endblock %}
-
 {% block content %}
-<!-- Contenido específico de la página 'iniciar_sesion' -->
-<h2>Iniciar Sesión</h2>
-<form method="post" action="{% url 'iniciar_sesion' %}">
+  <h1>Inicio de sesión</h1>
+
+  <form action="{% url 'iniciar_sesion' %}" method="post">
     {% csrf_token %}
+
     {{ form.as_p }}
-    <button type="submit">Iniciar Sesión</button>
-</form>
-<!-- Fin del contenido específico de la página 'iniciar_sesion' -->
+
+    <input type="submit" value="Iniciar sesión">
+  </form>
+
 {% endblock %}

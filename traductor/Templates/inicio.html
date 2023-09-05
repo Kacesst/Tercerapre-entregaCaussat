@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Traductor - Inicio</title>
-</head>
-<body>
-    <h1>Bienvenido al Traductor</h1>
-    <a href="{% url 'traducir' %}">Traducir</a>
-    <a href="{% url 'historial' %}">Historial de Traducciones</a>
-</body>
-</html>
+{% block content %}
+  <h1>Traductor</h1>
+
+  <p>Bienvenido al traductor de inglés a español.</p>
+
+  <a href="{% url 'traductor_view' %}">Traducir</a>
+
+  <a href="{% url 'busqueda_view' %}">Buscar</a>
+
+{% endblock %}

@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Traductor - Traducción</title>
-</head>
-<body>
-    <h1>Traducción</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Traducir</button>
-    </form>
+{% block content %}
+  <h1>Traductor</h1>
 
-    <h2>Traducciones Guardadas:</h2>
-    <ul>
-        {% for traduccion in traducciones %}
-            <li>{{ traduccion.texto_original }} - {{ traduccion.texto_traducido }}</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'inicio' %}">Volver a Inicio</a>
-</body>
-</html>
+  <form action="{% url 'traductor_view' %}" method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <input type="submit" value="Traducir">
+  </form>
+
+  {% if traducciones %}
+    <h2>Historial de traducciones</h2>
+
+    {% for traduccion in traducciones %}
+      <p>
+        <strong>Inglés:</strong> {{ traduccion.texto_ingles }}
+        <br>
+        <strong>Español:</strong> {{ traduccion.texto_espanol }}
+      </p>
+    {% endfor %}
+  {% endif %}
+
+{% endblock %}

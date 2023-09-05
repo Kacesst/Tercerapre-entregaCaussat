@@ -1,26 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Registro</title>
-</head>
-<body>
-    {% block content %}
-    <h1>Registro de Usuario</h1>
-
-    <form method="post" action="{% url 'registro' %}">
-        {% csrf_token %}
-        {% endblock %}
-        {% extends 'main.html' %}
-
-{% block title %}Registrarse{% endblock %}
-
 {% block content %}
-<!-- Contenido específico de la página 'registro' -->
-<h2>Registrarse</h2>
-<form method="post" action="{% url 'registro' %}">
+  <h1>Registro</h1>
+
+  <form action="{% url 'registro' %}" method="post">
     {% csrf_token %}
+
     {{ form.as_p }}
-    <button type="submit">Registrarse</button>
-</form>
-<!-- Fin del contenido específico de la página 'registro' -->
+
+    <input type="submit" value="Registrarse">
+  </form>
+
 {% endblock %}

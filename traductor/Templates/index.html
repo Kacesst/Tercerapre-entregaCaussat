@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Traductor</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0v4xVNRyMGpqkS2by6br4gNJ7DXjqk09Rm5nKpn4uOTvcOQ3S/4vAuUafYCEjAQ==" crossorigin="anonymous">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1 class="display-4">Bienvenido al traductor de inglés a español</h1>
+
+    <p class="lead">Este traductor te permite traducir texto del inglés al español.</p>
+
+    <a href="{% url 'traductor_view' %}" class="btn btn-primary">Traducir</a>
+
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09Rm5nKpn4uOTvcOQ3S/4vAuUafYCEjAQ==" crossorigin="anonymous"></script>
+</body>
+</html>

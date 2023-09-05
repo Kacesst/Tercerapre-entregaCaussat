@@ -3,10 +3,16 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .forms import TraduccionForm, BusquedaForm
-from .models import Traduccion
+from .models import Traduccion, HistorialTraduccion, Busqueda
+
 
 def inicio(request):
     return render(request, 'inicio.html')
+
+def index(request):
+    mensaje = "Bienvenido al traductor de inglés a español."
+    return render(request, 'index.html', {'mensaje': mensaje})
+
 
 def registro(request):
     if request.method == 'POST':
@@ -19,6 +25,7 @@ def registro(request):
     else:
         registro_form = UserCreationForm()
     return render(request, 'registration/registro.html', {'registro_form': registro_form})
+
 
 def iniciar_sesion(request):
     if request.method == 'POST':
@@ -35,25 +42,37 @@ def iniciar_sesion(request):
         inicio_sesion_form = AuthenticationForm()
     return render(request, 'registration/iniciar_sesion.html', {'inicio_sesion_form': inicio_sesion_form})
 
+
 def cerrar_sesion(request):
     logout(request)
     messages.success(request, 'Cierre de sesión exitoso.')
     return redirect('inicio')  # Redirigir a la página de inicio después del cierre de sesión
-
 def traductor_view(request):
     if request.method == 'POST':
         traduccion_form = TraduccionForm(request.POST)
         if traduccion_form.is_valid():
             # Guardar la traducción en la base de datos
             traduccion = traduccion_form.save()
-            return redirect('traductor_view')  # Redirigir para ingresar otra traducción
+            # Agregar la traducción al historial de traducciones
+            HistorialTraduccion.objects.create(
+                texto_original=traduccion.texto_ingles,
+                texto_traducido=traduccion.texto_espanol,
+            )
+            # Redirigir para ingresar otra traducción
+            return redirect('traductor_view')
     else:
         traduccion_form = TraduccionForm()
 
     # Obtener todas las traducciones almacenadas en la base de datos
     traducciones = Traduccion.objects.all()
+    historial_traducciones = HistorialTraduccion.objects.all()
 
-    return render(request, 'traductor.html', {'traduccion_form': traduccion_form, 'traducciones': traducciones})
+    return render(request, 'traductor.html', {
+        'traduccion_form': traduccion_form,
+        'traducciones': traducciones,
+        'historial_traducciones': historial_traducciones,
+    })
+
 
 def busqueda_view(request):
     if request.method == 'POST':
@@ -65,24 +84,13 @@ def busqueda_view(request):
         else:
             resultados = []
 
-        return render(request, 'busqueda.html', {'busqueda_form': busqueda_form, 'resultados': resultados})
+        return render(request, 'busqueda.html', {
+            'busqueda_form': busqueda_form,
+            'resultados': resultados,
+        })
     else:
         busqueda_form = BusquedaForm()
 
-    return render(request, 'busqueda.html', {'busqueda_form': busqueda_form})
-
-def buscar(request):
-    resultados = None
-
-    if request.method == 'POST':
-        # Si el formulario se envió, procesa los datos del formulario
-        formulario = BusquedaForm(request.POST)
-        if formulario.is_valid():
-            palabra_clave = formulario.cleaned_data['palabra_clave']
-            # Realiza la búsqueda en la base de datos
-            resultados = Traduccion.objects.filter(palabra__icontains=palabra_clave)
-    else:
-        # Si es una solicitud GET, muestra un formulario vacío
-        formulario = BusquedaForm()
-
-    return render(request, 'busqueda.html', {'formulario': formulario, 'resultados': resultados})
+    return render(request, 'busqueda.html', {
+        'busqueda_form': busqueda_form,
+    })
