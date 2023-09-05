@@ -10,3 +10,6 @@ class BusquedaForm(forms.ModelForm):
     class Meta:
         model = Busqueda
         fields = ['consulta']
+
+class BusquedaForm(forms.Form):
+    palabra_clave = forms.CharField(max_length=100, required=False, label='Palabra clave')

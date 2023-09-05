@@ -1,0 +1,14 @@
+<h2>Resultados de la Búsqueda</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ formulario.as_p }}
+    <button type="submit">Buscar</button>
+</form>
+
+{% if resultados %}
+<ul>
+    {% for resultado in resultados %}
+    <li>{{ resultado.palabra }} - {{ resultado.significado }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
